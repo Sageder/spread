@@ -6,7 +6,12 @@ from typing import Any, Callable, Dict, List
 
 import backtrader as bt
 
-from bokeh.models.widgets import Panel, Tabs, Slider, Button
+try:
+    from bokeh.models.widgets import Panel, Tabs, Slider, Button
+except ImportError:
+    # Bokeh 3.0+ moved Panel to TabPanel in bokeh.models
+    from bokeh.models import TabPanel as Panel, Tabs
+    from bokeh.models.widgets import Slider, Button
 from bokeh.layouts import column, row
 from bokeh.io import curdoc
 from bokeh.models.widgets import Div, Select

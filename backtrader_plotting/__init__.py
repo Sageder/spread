@@ -24,6 +24,9 @@ def _np_getattr(attr):
 
 np.__getattr__ = _np_getattr
 
+# Note: Bokeh 3.0+ compatibility is handled in individual modules
+# Panel (widgets) -> TabPanel (models) import fallback
+
 from backtrader_plotting.bokeh.bokeh import Bokeh
 
 from backtrader_plotting.bokeh.optbrowser import OptBrowser

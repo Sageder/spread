@@ -15,7 +15,11 @@ import numpy as np
 import pandas as pd
 
 from bokeh.models import ColumnDataSource, Model
-from bokeh.models.widgets import Panel, Tabs
+try:
+    from bokeh.models.widgets import Panel, Tabs
+except ImportError:
+    # Bokeh 3.0+ moved Panel to TabPanel in bokeh.models
+    from bokeh.models import TabPanel as Panel, Tabs
 from bokeh.layouts import column, gridplot
 
 from bokeh.embed import file_html
