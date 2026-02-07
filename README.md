@@ -12,16 +12,41 @@ This pipeline performs three main operations:
 
 ## Google Colab Setup
 
+### First-Time Setup (Push to GitHub)
+
+Before using the notebook in Colab, push your code to GitHub:
+
+```bash
+cd /path/to/spread
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/Sageder/spread.git
+git push -u origin main
+```
+
 ### Quick Start
 
 The notebook is designed to work seamlessly with Google Colab without manual file uploads:
 
-1. **Upload** `notebook.ipynb` to Google Colab
+1. **Upload** `spread.ipynb` to Google Colab
 2. **Run Section 0 cells** - This will automatically:
-   - Clone the repository
+   - Clone the repository from GitHub
    - Install all dependencies
    - Verify utility imports
 3. **Continue with Section 1 onwards** as normal
+
+### Private Repositories
+
+If your repository is private, you'll need a GitHub Personal Access Token:
+
+1. Generate token at: https://github.com/settings/tokens
+2. In the notebook's Section 0, Cell 1, uncomment and set:
+   ```python
+   GITHUB_TOKEN = "ghp_your_token_here"
+   REPO_URL = f"https://{GITHUB_TOKEN}@github.com/Sageder/spread.git"
+   ```
 
 ### First-Time Setup
 
