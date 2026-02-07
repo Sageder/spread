@@ -9,7 +9,12 @@ import pandas as pd
 
 from bokeh.models import Span
 from bokeh.plotting import figure
-from bokeh.models import HoverTool, CrosshairTool, LinearAxis, DataRange1d, Renderer, ColumnDataSource, FuncTickFormatter, DatetimeTickFormatter
+from bokeh.models import HoverTool, CrosshairTool, LinearAxis, DataRange1d, Renderer, ColumnDataSource, DatetimeTickFormatter
+try:
+    from bokeh.models import FuncTickFormatter
+except ImportError:
+    # Bokeh 3.0+ moved FuncTickFormatter to CustomJSTickFormatter
+    from bokeh.models import CustomJSTickFormatter as FuncTickFormatter
 from bokeh.models.formatters import NumeralTickFormatter
 
 from backtrader_plotting.bokeh.utils import convert_color, sanitize_source_name, get_bar_width, convert_linestyle
