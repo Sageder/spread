@@ -1,11 +1,28 @@
-# Fix numpy compatibility issues with newer versions
+# Fix numpy compatibility issues with newer versions (numpy 2.0+)
 import numpy as np
-if not hasattr(np, 'bool8'):
-    np.bool8 = np.bool_
-if not hasattr(np, 'int0'):
-    np.int0 = np.int_
-if not hasattr(np, 'float_'):
-    np.float_ = np.float64
+
+# Monkeypatch numpy to add back removed aliases
+_NUMPY_COMPAT_ATTRS = {
+    'bool8': np.bool_,
+    'bool': np.bool_,
+    'int0': np.intp,
+    'float': np.float64,
+    'complex': np.complex128,
+    'object': np.object_,
+    'str': np.str_,
+    'int': np.int_,
+}
+
+_np_getattr_original = getattr(np, '__getattr__', None)
+
+def _np_getattr(attr):
+    if attr in _NUMPY_COMPAT_ATTRS:
+        return _NUMPY_COMPAT_ATTRS[attr]
+    if _np_getattr_original:
+        return _np_getattr_original(attr)
+    raise AttributeError(f"module 'numpy' has no attribute '{attr}'")
+
+np.__getattr__ = _np_getattr
 
 from backtrader_plotting.bokeh.bokeh import Bokeh
 
